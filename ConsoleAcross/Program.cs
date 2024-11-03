@@ -17,7 +17,7 @@ namespace ConsoleAcross
                 Console.WriteLine(ex.Message, ConsoleColor.Red);
                 return;
             }
-            string option = "";
+            string? option = "";
             do
             {
                 Console.Clear();
