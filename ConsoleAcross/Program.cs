@@ -32,8 +32,8 @@ namespace ConsoleAcross
                 Console.WriteLine();
                 Console.WriteLine("X: to exit");
                 option = Console.ReadLine();
-                if (option is null)
-                    option = "";
+                if (string.IsNullOrWhiteSpace(option))
+                    continue;
                 string? search = "";
                 List<CrosswordEntry> results = new List<CrosswordEntry>();
                 switch (option?.ToLower()[0])
@@ -65,6 +65,9 @@ namespace ConsoleAcross
                         search = Console.ReadLine();
                         results = data.GetByAnswer(search);
                         break;
+                    default:
+                        Console.WriteLine($"{option} is an invalid.");
+                        break;
                 }
                 PrintAllEntries(results);
 
@@ -73,8 +76,14 @@ namespace ConsoleAcross
 
         private static void PrintAllEntries(List<CrosswordEntry> entries)
         {
-            if (entries.Count == 0) 
+            if (entries.Count == 0)
+            {
+                Console.WriteLine(
+                    "No Entires found. \r\n" +
+                    "Press any key to continue...");
+                Console.ReadKey();
                 return;
+            }
 
             Console.WriteLine("PubID\tYEAR\tANSWER\t\t\tCLUE");
             foreach (CrosswordEntry entry in entries)
